@@ -2,9 +2,6 @@
 <meta charset="utf-8">
 <style>
 
-.body {
-  padding-left: 50px;
-}
 
 .node {
   font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -29,11 +26,13 @@
 }
 
 .node--source {
-  fill: #2ca02c;
+  fill: #d62728;
+
 }
 
 .node--target {
-  fill: #d62728;
+
+  fill: #2ca02c;
 }
 
 .link--source,
@@ -43,29 +42,27 @@
 }
 
 .link--source {
-  stroke: #d62728;
+  stroke: #2ca02c;
 }
 
 .link--target {
-  stroke: #2ca02c;
+  stroke: #d62728;
 }
 
 </style>
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<center>
 <script>
-
 var tooltip = d3.select("body")
     .append("div")
     .attr("class", "tooltip")
     .style("position", "absolute")
-    .style("z-index", "10")
+    .style("x-index", "50")
     .style("opacity", 0)
     .style("font-weight", "bold")
     .style("font-size", "250%");
 
-var diameter = 960,
+var diameter = 1200,
     radius = diameter / 2,
     innerRadius = radius - 120;
 
@@ -78,7 +75,7 @@ var bundle = d3.layout.bundle();
 
 var line = d3.svg.line.radial()
     .interpolate("bundle")
-    .tension(.85)
+    .tension(.95)
     .radius(function(d) { return d.y; })
     .angle(function(d) { return d.x / 180 * Math.PI; });
 
@@ -91,10 +88,9 @@ var svg = d3.select("body").append("svg")
 var link = svg.append("g").selectAll(".link"),
     node = svg.append("g").selectAll(".node");
 
-d3.json("flare.json", function(error, classes) {
+d3.json("output2.json", function(error, classes) {
   var nodes = cluster.nodes(packageHierarchy(classes)),
       links = packageImports(nodes);
-
   link = link
       .data(bundle(links))
     .enter().append("path")
@@ -130,7 +126,7 @@ function mouseovered(d) {
       .classed("node--source", function(n) { return n.source; });
 
     tooltip.html(function() {
-              return d.name;
+              return d.name.substring(11);
             })
   return tooltip.transition()
             .duration(50)
@@ -152,7 +148,6 @@ d3.select(self.frameElement).style("height", diameter + "px");
 // Lazily construct the package hierarchy from class names.
 function packageHierarchy(classes) {
   var map = {};
-
   function find(name, data) {
     var node = map[name], i;
     if (!node) {
@@ -194,4 +189,7 @@ function packageImports(nodes) {
 }
 
 </script>
-</center>
+<h3 style="color: #d62728">Delivers Data</h3>
+<h3 style="color: #2ca02c">Receives Data</h3>
+</body>
+</html>
