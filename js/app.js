@@ -22,7 +22,7 @@ App.controller('DataCtrl',  function($scope, $http) {
           //dataService.setData(res.data);
           //console.log(dataService.getData());
         });
-   }]);
+   });
 
 App.controller('TodoCtrl', function($scope, $http) {
   $http.get('output.json')
