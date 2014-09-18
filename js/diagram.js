@@ -27,6 +27,7 @@ var line = d3.svg.line.radial()
 var svg = d3.select(".span10").append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
+    .attr("class", "svgmain")
   .append("g")
     .attr("transform", "translate(" + radius + "," + radius + ")");
 
