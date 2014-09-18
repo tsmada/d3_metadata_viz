@@ -60,7 +60,7 @@ var link = svg.append("g").selectAll(".link"),
 
 var exp = $parse(attrs.ChartData);
 console.log(exp);
-d3.json("outputtest.json", function(error, classes) {
+d3.json("output.json", function(error, classes) {
   var nodes = cluster.nodes(packageHierarchy(classes)),
       links = packageImports(nodes);
   link = link
