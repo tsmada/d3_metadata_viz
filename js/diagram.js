@@ -29,7 +29,8 @@ var svg = d3.select(".span10").append("svg")
     .attr("height", diameter)
     .attr("class", "svgmain")
   .append("g")
-    .attr("transform", "translate(" + radius + "," + radius + ")");
+    .attr("transform", "translate(" + radius + "," + radius + ")")
+    .attr("class", "svgmain");
 
 var link = svg.append("g").selectAll(".link"),
     node = svg.append("g").selectAll(".node");
