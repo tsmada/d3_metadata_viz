@@ -40,7 +40,7 @@ def buildapplist(): ## sheet parser
                 pass
 
         ## this one weird trick that programmers hate!!!!!
-        maps.append({"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types})
+    maps.append({"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types})
 
 buildapplist()
 with open("outputtest.json", "wb") as f:
