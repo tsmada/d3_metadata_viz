@@ -11,8 +11,8 @@ wbstr = inputsource ## Set input source to variable
 wb = open_workbook(wbstr) ## Set variable = instantiation of open_workbook(input source)
 g = wb.sheet_by_index(0) ## Grab the first sheet
 keys = []
-maps = {}
 applist = []
+maps = []
 
 def stripthis(value): ## function to strip bs
     value = str(value).replace("[","").replace("]","").replace(".","").replace("'","").replace(".CSV","CSV")
@@ -40,12 +40,7 @@ def buildapplist(): ## sheet parser
                 pass
 
         ## this one weird trick that programmers hate!!!!!
-        if appfromfqan not in applist:
-            applist.append(appfromfqan)
-            maps[rows] = {"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types}
-        elif apptofqan not in applist:
-            applist.append(apptofqan)
-            maps[rows] = {"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types}
+        maps.append({"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types})
 
 buildapplist()
 with open("outputtest.json", "wb") as f:

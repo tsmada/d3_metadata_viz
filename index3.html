@@ -34,7 +34,7 @@
       <!--Body content-->
       <center>
       <script src="js/diagram.js"></script></center>
-      <table class="table">
+      <table class="table" ng-controller="DataCtrl">
         <thead>
           <tr>
             <th>#</th>
@@ -45,7 +45,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr ng-repeat="datas in data">
             <td>1</td>
             <td>Commercial Credit</td>
             <td>1ABL (1 Asset Based Lending Platform)</td>
