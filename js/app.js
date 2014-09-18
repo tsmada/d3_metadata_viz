@@ -127,7 +127,8 @@ function mouseovered(d) {
       .classed("node--source", function(n) { return n.source; });
 
     tooltip.html(function() {
-              return d.name.substring(11);
+              return d.name.substring(11), d.imports;
+
             })
   return tooltip.transition()
             .duration(50)
