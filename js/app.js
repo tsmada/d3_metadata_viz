@@ -58,7 +58,9 @@ var svg = d3.select(".span10").append("svg")
 var link = svg.append("g").selectAll(".link"),
     node = svg.append("g").selectAll(".node");
 
-d3.json($parse(attrs.chartData), function(error, classes) {
+var exp = $parse(attrs.ChartData);
+console.log(exp);
+d3.json(exp, function(error, classes) {
   var nodes = cluster.nodes(packageHierarchy(classes)),
       links = packageImports(nodes);
   link = link
