@@ -1,7 +1,7 @@
 var App = angular.module('SIMDOT', []);
 
 angular.module('SIMDOT')
-  .service('dataService', function($scope) {
+    .service('dataService', function() {
             var data = {}
             return {
                 getData: function() {
@@ -13,14 +13,14 @@ angular.module('SIMDOT')
             };
         });
 
-App.controller('DataCtrl', ['dataService', function($scope, $http, 'dataService') {
+App.controller('DataCtrl',  function($scope, $http) {
   $http.get('outputtest.json')
        .then(function(res){
           $scope.todos = res.data;
           $scope.data = res.data;
-          console.log(res.data.length());
-          dataService.setData(res.data);
-          console.log(dataService.getData());
+          //console.log(res.data.length());
+          //dataService.setData(res.data);
+          //console.log(dataService.getData());
         });
    }]);
 
