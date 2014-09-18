@@ -78,7 +78,7 @@ var bundle = d3.layout.bundle();
 
 var line = d3.svg.line.radial()
     .interpolate("bundle")
-    .tension(.85)
+    .tension(.9)
     .radius(function(d) { return d.y; })
     .angle(function(d) { return d.x / 180 * Math.PI; });
 
