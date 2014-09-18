@@ -42,7 +42,7 @@ App.controller('TodoCtrl', function($scope, $http) {
         });
 });
 
-App.directive('d3', function($parse, $window){
+App.directive('d3', function($parse, $window, $scope){
    return{
       restrict:'EA',
       //template:"<svg width='850' height='200'></svg>",
