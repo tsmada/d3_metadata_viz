@@ -28,7 +28,6 @@ var svg = d3.select(".span10").append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
   .append("g")
-    .attr("center")
     .attr("transform", "translate(" + radius + "," + radius + ")");
 
 var link = svg.append("g").selectAll(".link"),
