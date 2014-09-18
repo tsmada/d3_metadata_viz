@@ -12,7 +12,7 @@ App.service('dataService', function($scope) {
             };
         });
 
-App.controller('DataCtrl', function($scope, $http, 'dataService') {
+App.controller('DataCtrl', ['dataService', function($scope, $http, 'dataService') {
   $http.get('outputtest.json')
        .then(function(res){
           $scope.todos = res.data;
@@ -21,7 +21,7 @@ App.controller('DataCtrl', function($scope, $http, 'dataService') {
           dataService.setData(res.data);
           console.log(dataService.getData());
         });
-   });
+   }]);
 
 App.controller('TodoCtrl', function($scope, $http) {
   $http.get('output.json')
