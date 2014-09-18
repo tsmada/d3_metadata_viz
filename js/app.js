@@ -1,6 +1,6 @@
 var App = angular.module('SIMDOT', []);
 
-App.service('dataService', function() {
+App.service('dataService', function($scope) {
             var data = {}
             return {
                 getData: function() {
