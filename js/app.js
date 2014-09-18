@@ -42,7 +42,7 @@ App.controller('TodoCtrl', function($scope, $http) {
         });
 });
 
-App.directive('d3', function($parse, $window, $scope){
+App.directive('d3', ['dataService', function($parse, $window, dataService){
    return{
       restrict:'EA',
       //template:"<svg width='850' height='200'></svg>",
@@ -188,4 +188,4 @@ function packageImports(nodes) {
 }
            }
          }
-});
+}]);
