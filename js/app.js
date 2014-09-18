@@ -5,6 +5,7 @@ App.controller('DataCtrl', function($scope, $http) {
        .then(function(res){
           $scope.todos = res.data;
           $scope.data = res.data;
+          console.log(data.length());
         });
    });
 
@@ -21,6 +22,7 @@ App.directive('d3', function($parse, $window){
       restrict:'EA',
       //template:"<svg width='850' height='200'></svg>",
        link: function(scope, elem, attrs){
+
         var tooltip = d3.select("head")
     .append("div")
     .attr("class", "tooltip")
