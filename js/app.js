@@ -1,7 +1,7 @@
 var App = angular.module('SIMDOT', []);
 
 App.controller('TodoCtrl', function($scope, $http) {
-  $http.get('outputtest.json')
+  $http.get('output.json')
        .then(function(res){
           $scope.todos = res.data;
           $scope.data = res.data;
