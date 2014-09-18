@@ -1,11 +1,25 @@
 var App = angular.module('SIMDOT', []);
 
-App.controller('DataCtrl', function($scope, $http) {
+App.service('dataService', function() {
+            var data = {}
+            return {
+                getData: function() {
+                    return data;
+                },
+                    setData: function(value) {
+                    data = value;
+                }
+            };
+        });
+
+App.controller('DataCtrl', function($scope, $http, 'dataService') {
   $http.get('outputtest.json')
        .then(function(res){
           $scope.todos = res.data;
           $scope.data = res.data;
           console.log(res.data.length());
+          dataService.setData(res.data);
+          console.log(dataService.getData());
         });
    });
 
