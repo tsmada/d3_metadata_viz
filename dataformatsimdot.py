@@ -49,7 +49,6 @@ for mapp in maps:
     mapps.append(mapp)
 
 
-
 with open("outputtest.json", "wb") as f:
-    f.write(mapps)
+    f.write(str(mapps).replace("'",""))
 
