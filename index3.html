@@ -37,7 +37,6 @@
         {{data}}
         <thead>
           <tr>
-            <th>#</th>
             <th>Risk Domain</th>
             <th>System From</th>
             <th>System To</th>
@@ -47,21 +46,9 @@
         <tbody>
           <tr ng-repeat="datas in data">
             <td>1</td>
-            <td>{{datas}}</td>
-            <td>1ABL (1 Asset Based Lending Platform)</td>
-            <td>CAR (F_COMMERCIAL)</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Commercial Credit</td>
-            <td>ABL (Asset Based Lending-LUCAS)</td>
-            <td>CAR (F_COMMERCIAL)</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Commercial Credit</td>
-            <td>AFG/EAQS (Auto Finance Group)</td>
-            <td>CAR (F_COMMERCIAL)</td>
+            <td>{{datas.riskdomain}}</td>
+            <td>{{datas.appfromfqan}}</td>
+            <td>{{datas.apptofqan}}</td>
           </tr>
         </tbody>
       </table>
