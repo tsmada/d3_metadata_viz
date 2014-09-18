@@ -15,12 +15,12 @@ angular.module('SIMDOT')
 
 angular.module('SIMDOT')
     .controller('DataCtrl1', ['$scope', '$http', 'dataService', function($scope, $http, dataService) {
-            var obj = {"apptofqan": "CRiDRs", "functions":"Producer", "types": "Dwor"};
-            dataService.setData(obj);
+      $http.get('outputtest.json')
+       .then(function(res){
+          $scope.todos = res.data;
+          $scope.data = res.data;
+        });
             $scope.data = dataService.getData();
-          //console.log(res.data.length());
-          //dataService.setData(res.data);
-          console.log(dataService.getData());
             }]);
 
 App.controller('DataCtrl',  function($scope, $http) {
@@ -28,9 +28,6 @@ App.controller('DataCtrl',  function($scope, $http) {
        .then(function(res){
           $scope.todos = res.data;
           $scope.data = res.data;
-          //console.log(res.data.length());
-          //dataService.setData(res.data);
-          //console.log(dataService.getData());
         });
    });
 
