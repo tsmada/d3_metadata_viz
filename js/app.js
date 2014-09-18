@@ -19,8 +19,9 @@ angular.module('SIMDOT')
        .then(function(res){
           $scope.todos = res.data;
           $scope.data = res.data;
+          dataService.setData(res.data);
         });
-            $scope.data = dataService.getData();
+            //$scope.data = dataService.getData();
             }]);
 
 App.controller('DataCtrl',  function($scope, $http) {
