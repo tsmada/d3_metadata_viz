@@ -5,7 +5,7 @@ App.controller('DataCtrl', function($scope, $http) {
        .then(function(res){
           $scope.todos = res.data;
           $scope.data = res.data;
-          console.log(data.length());
+          console.log(res.data.length());
         });
    });
 
