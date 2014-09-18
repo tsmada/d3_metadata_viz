@@ -1,5 +1,5 @@
 var tooltip = d3.select("span10")
-    //.append("div")
+    .append("div")
     .attr("class", "tooltip")
     .style("position", "absolute")
     .style("x-index", "50")
@@ -24,7 +24,7 @@ var line = d3.svg.line.radial()
     .radius(function(d) { return d.y; })
     .angle(function(d) { return d.x / 180 * Math.PI; });
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("span10").append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
   .append("g")
