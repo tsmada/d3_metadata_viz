@@ -1,4 +1,4 @@
-var tooltip = d3.select("span10")
+var tooltip = d3.select(".span10")
     .append("div")
     .attr("class", "tooltip")
     .style("position", "absolute")
