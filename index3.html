@@ -1,4 +1,4 @@
-<html ng-app>
+<html ng-app="SIMDOT">
 <meta charset="utf-8">
 <head>
   <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -14,11 +14,12 @@
 </body>
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span2">
+    <div class="span2" ng-controller="TodoCtrl">
       <!--Sidebar content-->
       <h3>Risk Domains</h3>
       <li>Commercial Credit</li>
       <li>Counterparty</li>
+      <span ng-repeat="todos" ng-model="todos"></span>
     </div>
     <div class="span10">
       <!--Body content-->
@@ -29,7 +30,7 @@
 <script src="js/jquery-1.11.1.js"></script>
 <script src="js/angular.js"></script>
 <script src="js/bootstrap.js"></script>
-
+<script src="js/app.js"></script>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
 <link rel="stylesheet" type="text/css" href="css/diagramstyle.css">
