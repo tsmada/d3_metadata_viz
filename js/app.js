@@ -19,7 +19,7 @@ App.controller('TodoCtrl', function($scope, $http) {
 App.directive('d3', function($parse, $window){
    return{
       restrict:'EA',
-      template:"<svg width='850' height='200'></svg>",
+      //template:"<svg width='850' height='200'></svg>",
        link: function(scope, elem, attrs){
         var tooltip = d3.select("head")
     .append("div")
