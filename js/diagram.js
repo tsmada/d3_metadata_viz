@@ -7,7 +7,7 @@ var tooltip = d3.select("span10")
     .style("font-weight", "bold")
     .style("font-size", "250%");
 
-var diameter = 1200,
+var diameter = 800,
     radius = diameter / 2,
     innerRadius = radius - 120;
 
