@@ -1,5 +1,5 @@
-var tooltip = d3.select("body")
-    .append("div")
+var tooltip = d3.select("span10")
+    //.append("div")
     .attr("class", "tooltip")
     .style("position", "absolute")
     .style("x-index", "50")
