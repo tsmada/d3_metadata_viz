@@ -3,6 +3,11 @@
   margin-right: auto;
 }
 
+#svgmain {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .node {
   font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
   fill: #bbb;
