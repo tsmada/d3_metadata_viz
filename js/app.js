@@ -5,7 +5,8 @@ App.controller('DataCtrl', function($scope, $http) {
        .then(function(res){
           $scope.todos = res.data;
           $scope.data = res.data;
-        }),
+        });
+   });
 
 App.controller('TodoCtrl', function($scope, $http) {
   $http.get('output.json')
