@@ -38,6 +38,9 @@
       <!--<script src="js/diagram.js"></script></center>-->
       <div d3 chart-data="data"></div>
       <table class="table" ng-controller="DataCtrl">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" ng-model='searchText'>
+        </div>
         <thead>
           <tr>
             <th>Risk Domain</th>
@@ -47,7 +50,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="datas in data">
+          <tr ng-repeat="datas in data | filter:searchText">
             <td>{{datas.riskdomain}}</td>
             <td>{{datas.appfromfqan}}</td>
             <td>{{datas.apptofqan}}</td>
