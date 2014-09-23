@@ -1,18 +1,4 @@
 var App = angular.module('SIMDOT', ['ui.utils']);
-
-
-function PageController($scope, dataService) {
-    // initial value
-    $scope.page = 0;
-    // watch current page for updates and set page value
-    $scope.$watch(dataService.getData, function(newValue, oldValue, scope) {
-        if (newValue && newValue !== oldValue) {
-            $scope.page = newVal;
-            console.log($scope.page);
-        }
-    });
-
-}
 angular.module('SIMDOT')
     .service('dataService', function() {
             var data = {}
@@ -220,6 +206,7 @@ angular.module('SIMDOT')
          $scope.classFunctions = defval;
          $scope.classTypes = defval;
          $scope.classDwor = defval;
+         $scope.classInterfacetype = defval;
 
 
     $scope.changeClass = function(value){
@@ -236,6 +223,9 @@ angular.module('SIMDOT')
     case 'domain':
         $scope.classDomain = "label label-danger";
         break;
+    case 'interfacetype':
+        $scope.classInterfacetype = "label label-danger";
+        break;
         // if ($scope.class === "label label-info")
         //     $scope.class = "label label-danger";
     };
@@ -246,6 +236,19 @@ angular.module('SIMDOT')
           console.log(value);
          for (var domain in $scope.data){
            if ($scope.data[domain].functions == value){
+            console.log($scope.data[domain]);
+             newdata.push($scope.data[domain]);
+             $scope.$watch(newdata, function(newVal, oldVal) {
+              $scope.data = newdata;
+             });
+              }
+           }
+        };
+        $scope.interfacetype = function(value) {
+          var newdata = [];
+          console.log(value);
+         for (var domain in $scope.data){
+           if ($scope.data[domain].interfacetype == value){
             console.log($scope.data[domain]);
              newdata.push($scope.data[domain]);
              $scope.$watch(newdata, function(newVal, oldVal) {
@@ -300,6 +303,7 @@ angular.module('SIMDOT')
         $scope.classFunctions = defval;
         $scope.classTypes = defval;
         $scope.classDwor = defval;
+        $scope.classInterfacetype = defval;
        };
        $scope.domains = function(value) {
         var newdata = [];
