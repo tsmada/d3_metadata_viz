@@ -215,6 +215,32 @@ function packageImports(nodes) {
 
 angular.module('SIMDOT')
 .controller('DataCtrl', ['$scope', '$http', 'dataService', 'dataService1', function($scope, $http, dataService, dataService1) {
+         var defval = "label label-info";
+         $scope.classDomain = defval;
+         $scope.classFunctions = defval;
+         $scope.classTypes = defval;
+         $scope.classDwor = defval;
+
+
+    $scope.changeClass = function(value){
+      switch(value) {
+    case 'functions':
+        $scope.classFunctions = "label label-danger";
+        break;
+    case 'dwor':
+        $scope.classDwor = "label label-danger";
+        break;
+    case 'types':
+        $scope.classTypes = "label label-danger";
+        break;
+    case 'domain':
+        $scope.classDomain = "label label-danger";
+        break;
+        // if ($scope.class === "label label-info")
+        //     $scope.class = "label label-danger";
+    };
+  }
+
          $scope.functions = function(value) {
           var newdata = [];
           console.log(value);
@@ -268,7 +294,12 @@ angular.module('SIMDOT')
           $scope.data = res.data;
         });
        $scope.reset = function() {
+        var defval = "label label-info"
         $scope.data = $scope.todos;
+        $scope.classDomain = defval;
+        $scope.classFunctions = defval;
+        $scope.classTypes = defval;
+        $scope.classDwor = defval;
        };
        $scope.domains = function(value) {
         var newdata = [];
