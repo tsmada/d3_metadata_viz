@@ -199,7 +199,7 @@ function packageImports(nodes) {
   });
 
   // For each import, construct a link from the source to target node.
-  var therows = dataService.getData();
+
   nodes.forEach(function(d) {
     if (d.imports) d.imports.forEach(function(i) {
       imports.push({source: map[d.name], target: map[i]});
@@ -215,7 +215,45 @@ function packageImports(nodes) {
 
 angular.module('SIMDOT')
 .controller('DataCtrl', ['$scope', '$http', 'dataService', 'dataService1', function($scope, $http, dataService, dataService1) {
-         var newdata = [];
+         $scope.functions = function(value) {
+          var newdata = [];
+          console.log(value);
+         for (var domain in $scope.data){
+           if ($scope.data[domain].functions == value){
+            console.log($scope.data[domain]);
+             newdata.push($scope.data[domain]);
+             $scope.$watch(newdata, function(newVal, oldVal) {
+              $scope.data = newdata;
+             });
+              }
+           }
+        };
+        $scope.types = function(value) {
+          var newdata = [];
+          console.log(value);
+         for (var domain in $scope.data){
+           if ($scope.data[domain].types == value){
+            console.log($scope.data[domain]);
+             newdata.push($scope.data[domain]);
+             $scope.$watch(newdata, function(newVal, oldVal) {
+              $scope.data = newdata;
+             });
+              }
+           }
+        };
+        $scope.dwor = function(value) {
+          var newdata = [];
+          console.log(value);
+         for (var domain in $scope.data){
+           if ($scope.data[domain].dwor == value){
+            console.log($scope.data[domain]);
+             newdata.push($scope.data[domain]);
+             $scope.$watch(newdata, function(newVal, oldVal) {
+              $scope.data = newdata;
+             });
+              }
+           }
+        };
          $http.get('outputv1.json')
        .then(function(res){
           $scope.data1 = res.data;
@@ -232,14 +270,27 @@ angular.module('SIMDOT')
        $scope.reset = function() {
         $scope.data = $scope.todos;
        };
-       $scope.attributes = function(value) {
+       $scope.domains = function(value) {
+        var newdata = [];
         for (var domain in $scope.data){
           if ($scope.data[domain].riskdomain == value){
             console.log($scope.data[domain]);
             newdata.push($scope.data[domain]);
           }
         };
-        $scope.$watch('data2', function() { $scope.data = newdata; });
+
+        $scope.$watch('data2', function() { $scope.data = newdata;
+          //console.log($scope.data1);
+          for (var elem in $scope.data){
+            //console.log($scope.data[elem].row);
+            for (var rows in $scope.data1) {
+              if (rows.imports > 0) {
+               // console.log($scope.data1.rows);
+              }
+            }
+            console.log($scope.data1[rows].imports);
+          }
+         });
         $scope.$watch(dataService1.data, function(newValue, oldValue, scope) {
           console.log($scope.data);
     });
@@ -247,22 +298,5 @@ angular.module('SIMDOT')
 
        }
    }]);
-
-angular.module('SIMDOT')
-    .controller('DataCtrl1', ['$scope', '$http', 'dataService', 'dataService1' ,function($scope, $http, dataService, dataService1) {
-      $http.get('outputtest.json')
-       .then(function(res){
-          $scope.todos = res.data;
-          $scope.data = res.data;
-          //console.log(res.data);
-        });
-       $http.get('outputv1.json')
-       .then(function(res){
-          $scope.data1 = res.data;
-          //console.log(res.data);
-        });
-       $scope.data2 = dataService.getData();
-            //$scope.data = dataService.getData();
-            }]);
 
 
