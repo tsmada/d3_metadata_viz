@@ -48,7 +48,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             //scope.$apply();
             scope.$watch('data', function() {
                 if (reset == false) {
-                    console.log(reset);
+                    console.log("reset == false");
                     reset = true;
                     $('svg').remove();
                     console.log("data changed");
@@ -258,7 +258,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     }
                 } else if (reset == true) {
                     $('svg').remove();
-                    reset = false;
+                    //reset = false;
                     var tooltip = d3.select("head")
                 .append("div")
                 .attr("class", "tooltip")
@@ -309,7 +309,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             var classe = $http.get('outputv1.json')
                 .then(function(res) {
                     mapService.setData(res.data);
-                    reset = false;
+                    reset = true;
                     var classes = res.data;
                     dataService.setData(res.data);
                     var nodes = cluster.nodes(packageHierarchy(classes))
