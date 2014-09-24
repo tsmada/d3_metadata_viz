@@ -1,5 +1,5 @@
 var App = angular.module('SIMDOT', ['ui.utils']);
-var reset = true;
+var reset = false;
 angular.module('SIMDOT')
     .service('dataService', function() {
         var data = {}
@@ -258,7 +258,8 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     }
                 } else if (reset == true) {
                     $('svg').remove();
-                    //reset = false;
+                    console.log("reset == true");
+                    reset = false;
                     var tooltip = d3.select("head")
                 .append("div")
                 .attr("class", "tooltip")
@@ -309,7 +310,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             var classe = $http.get('outputv1.json')
                 .then(function(res) {
                     mapService.setData(res.data);
-                    reset = true;
+                    //reset = true;
                     var classes = res.data;
                     dataService.setData(res.data);
                     var nodes = cluster.nodes(packageHierarchy(classes))
@@ -783,14 +784,15 @@ angular.module('SIMDOT')
                 $scope.classTypes = defval;
                 $scope.classDwor = defval;
                 $scope.classInterfacetype = defval;
-                reset = true;
+                if (reset == false) { reset ? false : true};
+                //reset = true;
                 console.log(reset);
             };
             $scope.domains = function(value) {
                 var newdata = [];
                 for (var domain in $scope.data) {
                     if ($scope.data[domain].riskdomain == value) {
-                        console.log($scope.data[domain]);
+                        //console.log($scope.data[domain]);
                         newdata.push($scope.data[domain]);
                     }
                 };
