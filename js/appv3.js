@@ -1,5 +1,5 @@
 var App = angular.module('SIMDOT', ['ui.utils']);
-var reset = false;
+var reset = true;
 angular.module('SIMDOT')
     .service('dataService', function() {
         var data = {}
@@ -48,7 +48,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             //scope.$apply();
             scope.$watch('data', function() {
                 if (reset == false) {
-                    console.log("reset == false");
+                    console.log("Entering Watch on $scope.data for reset === false. reset is now == true");
                     reset = true;
                     $('svg').remove();
                     console.log("data changed");
@@ -310,7 +310,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             var classe = $http.get('outputv1.json')
                 .then(function(res) {
                     mapService.setData(res.data);
-                    reset = true;
+                    //reset = true;
                     var classes = res.data;
                     dataService.setData(res.data);
                     var nodes = cluster.nodes(packageHierarchy(classes))
@@ -784,7 +784,7 @@ angular.module('SIMDOT')
                 $scope.classTypes = defval;
                 $scope.classDwor = defval;
                 $scope.classInterfacetype = defval;
-                reset ? false : true;
+                reset=false;
                 //reset = true;
                 console.log(reset);
             };
