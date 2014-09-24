@@ -1,5 +1,5 @@
 var App = angular.module('SIMDOT', ['ui.utils']);
-var reset = true;
+var reset = false;
 angular.module('SIMDOT')
     .service('dataService', function() {
         var data = {}
@@ -310,7 +310,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             var classe = $http.get('outputv1.json')
                 .then(function(res) {
                     mapService.setData(res.data);
-                    //reset = true;
+                    reset = true;
                     var classes = res.data;
                     dataService.setData(res.data);
                     var nodes = cluster.nodes(packageHierarchy(classes))
