@@ -101,7 +101,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     //dataService1.setData(classes);
 
                     //var classes = dataService.getData();
-                    var classes = mapService.getData().slice(0, 100);
+                    var classes = mapService.getData().slice(0, 177);
                     var nodes = cluster.nodes(packageHierarchy(classes))
                     var links = packageImports(nodes);
                     link = link
