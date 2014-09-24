@@ -784,7 +784,7 @@ angular.module('SIMDOT')
                 $scope.classTypes = defval;
                 $scope.classDwor = defval;
                 $scope.classInterfacetype = defval;
-                if (reset == false) { reset ? false : true};
+                reset ? false : true;
                 //reset = true;
                 console.log(reset);
             };
