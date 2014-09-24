@@ -1,5 +1,5 @@
 var App = angular.module('SIMDOT', ['ui.utils']);
-var reset = false;
+var reset = true;
 angular.module('SIMDOT')
     .service('dataService', function() {
         var data = {}
