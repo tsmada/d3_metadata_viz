@@ -308,7 +308,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             var classe = $http.get('outputv1.json')
                 .then(function(res) {
                     mapService.setData(res.data);
-                    reset = false;
+                    //reset = false;
                     var classes = res.data;
                     dataService.setData(res.data);
                     var nodes = cluster.nodes(packageHierarchy(classes))
