@@ -126,7 +126,7 @@ angular.module('SIMDOT')
                         newdata.push($scope.data[domain]);
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
-                            reset = false;
+                            //reset = false;
                         });
                     }
                 }
@@ -154,10 +154,14 @@ angular.module('SIMDOT')
                     if ($scope.data[domain].riskdomain == value) {
                         //console.log($scope.data[domain]);
                         newdata.push($scope.data[domain]);
+                        $scope.$watch(newdata, function(newVal, oldVal) {
+                            $scope.data = newdata;
+                            reset = false;
+                        });
                     }
                 };
 
-            $scope.$watch('data2', function() { $scope.data = newdata;});
+            //$scope.$watch('data2', function() { $scope.data = newdata;});
 
             }
 
@@ -229,7 +233,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
 
                     //var classes = dataService.getData();
                     console.log(mapService.getData());
-                    var classes = mapService.getData().slice(0, 100);
+                    var classes = mapService.defData().slice(0, 100);
                     console.log(classes);
                     var nodes = cluster.nodes(packageHierarchy(classes))
                     var links = packageImports(nodes);
