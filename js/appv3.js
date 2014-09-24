@@ -1,5 +1,5 @@
 var App = angular.module('SIMDOT', ['ui.utils']);
-var reset = true;
+var reset = true; // TRUE LOADS DEFAULT DATA
 angular.module('SIMDOT')
     .service('dataService', function() {
         var data = {}
@@ -27,7 +27,7 @@ angular.module('SIMDOT')
     });
 
 angular.module('SIMDOT')
-    .service('mapService', function() {
+    .service('mapService', ['$http', function($http) {
         var data = {}
         return {
             getData: function() {
@@ -35,9 +35,136 @@ angular.module('SIMDOT')
             },
             setData: function(value) {
                 data = value;
+            },
+            defData: function() {
+                $http.get('outputv1.json')
+                .then(function(res) {
+                    data = res.data;
+                });
+                return data;
             }
         };
-    });
+    }]);
+
+
+
+angular.module('SIMDOT')
+    .controller('DataCtrl', ['$scope', '$http', 'dataService', 'dataService1', 'mapService',
+        function($scope, $http, dataService, dataService1, mapService) {
+            var defval = "label label-info";
+            $scope.classDomain = defval;
+            $scope.classFunctions = defval;
+            $scope.classTypes = defval;
+            $scope.classDwor = defval;
+            $scope.classInterfacetype = defval;
+
+            $scope.changeClass = function(value) {
+                switch (value) {
+                    case 'functions':
+                        $scope.classFunctions = "label label-danger";
+                        break;
+                    case 'dwor':
+                        $scope.classDwor = "label label-danger";
+                        break;
+                    case 'types':
+                        $scope.classTypes = "label label-danger";
+                        break;
+                    case 'domain':
+                        $scope.classDomain = "label label-danger";
+                        break;
+                    case 'interfacetype':
+                        $scope.classInterfacetype = "label label-danger";
+                        break;
+                };
+            }
+
+            $scope.functions = function(value) {
+                var newdata = [];
+                //console.log(value);
+                for (var domain in $scope.data) {
+                    if ($scope.data[domain].functions == value) {
+                        //console.log($scope.data[domain]);
+                        newdata.push($scope.data[domain]);
+                        $scope.$watch(newdata, function(newVal, oldVal) {
+                            $scope.data = newdata;
+                        });
+                    }
+                }
+            };
+            $scope.interfacetype = function(value) {
+                var newdata = [];
+                console.log(value);
+                for (var domain in $scope.data) {
+                    if ($scope.data[domain].interfacetype == value) {
+                        //console.log($scope.data[domain]);
+                        newdata.push($scope.data[domain]);
+                        $scope.$watch(newdata, function(newVal, oldVal) {
+                            $scope.data = newdata;
+                        });
+                    }
+                }
+            };
+            $scope.types = function(value) {
+                var newdata = [];
+                console.log(value);
+                for (var domain in $scope.data) {
+                    if ($scope.data[domain].types == value) {
+                        //console.log($scope.data[domain]);
+                        newdata.push($scope.data[domain]);
+                        $scope.$watch(newdata, function(newVal, oldVal) {
+                            $scope.data = newdata;
+                        });
+                    }
+                }
+            };
+            $scope.dwor = function(value) {
+                var newdata = [];
+                //console.log(value);
+                for (var domain in $scope.data) {
+                    if ($scope.data[domain].dwor == value) {
+                        //console.log($scope.data[domain]);
+                        newdata.push($scope.data[domain]);
+                        $scope.$watch(newdata, function(newVal, oldVal) {
+                            $scope.data = newdata;
+                            reset = false;
+                        });
+                    }
+                }
+            };
+            $http.get('outputtest.json')
+                .then(function(res) {
+                    dataService1.setData(res.data);
+                    var newdata = new Object();
+                    $scope.todos = res.data;
+                    $scope.data = res.data;
+                });
+            $scope.reset = function() {
+                var defval = "label label-info"
+                $scope.data = $scope.todos;
+                $scope.classDomain = defval;
+                $scope.classFunctions = defval;
+                $scope.classTypes = defval;
+                $scope.classDwor = defval;
+                $scope.classInterfacetype = defval;
+                reset = true;
+            };
+            $scope.domains = function(value) {
+                var newdata = [];
+                for (var domain in $scope.data) {
+                    if ($scope.data[domain].riskdomain == value) {
+                        //console.log($scope.data[domain]);
+                        newdata.push($scope.data[domain]);
+                    }
+                };
+
+            $scope.$watch('data2', function() { $scope.data = newdata;});
+
+            }
+
+        }
+    ]);
+
+
 
 App.directive('d3', function($parse, $window, dataService, dataService1, $http, mapService) {
     return {
@@ -48,10 +175,10 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             //scope.$apply();
             scope.$watch('data', function() {
                 if (reset == false) {
-                    console.log("Entering Watch on $scope.data for reset === false. reset is now == true");
+                    console.log("Entering Watch on $scope.data for reset === false. reset is now == true. The next data loaded is mapService slice.");
                     reset = true;
                     $('svg').remove();
-                    console.log("data changed");
+                    //console.log("data changed");
                     var tooltip = d3.select("head")
                         .append("div")
                         .attr("class", "tooltip")
@@ -101,7 +228,9 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     //dataService1.setData(classes);
 
                     //var classes = dataService.getData();
-                    var classes = mapService.getData().slice(0, 177);
+                    console.log(mapService.getData());
+                    var classes = mapService.getData().slice(0, 100);
+                    console.log(classes);
                     var nodes = cluster.nodes(packageHierarchy(classes))
                     var links = packageImports(nodes);
                     link = link
@@ -258,8 +387,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     }
                 } else if (reset == true) {
                     $('svg').remove();
-                    console.log("reset == true");
-                    reset = false;
+                    console.log("reset == true, loading default dataset");
                     var tooltip = d3.select("head")
                 .append("div")
                 .attr("class", "tooltip")
@@ -309,8 +437,10 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             //dataService1.setData(classes);
             var classe = $http.get('outputv1.json')
                 .then(function(res) {
+                    console.log('loading static in directive');
+                    reset = true;
                     mapService.setData(res.data);
-                    //reset = true;
+                    dataService1.setData(res.data);
                     var classes = res.data;
                     dataService.setData(res.data);
                     var nodes = cluster.nodes(packageHierarchy(classes))
@@ -524,7 +654,6 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             var classe = $http.get('outputv1.json')
                 .then(function(res) {
                     mapService.setData(res.data);
-                    reset = false;
                     var classes = res.data;
                     dataService.setData(res.data);
                     var nodes = cluster.nodes(packageHierarchy(classes))
@@ -686,120 +815,3 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
     }
 
 });
-
-angular.module('SIMDOT')
-    .controller('DataCtrl', ['$scope', '$http', 'dataService', 'dataService1', 'mapService',
-        function($scope, $http, dataService, dataService1, mapService) {
-            var defval = "label label-info";
-            $scope.classDomain = defval;
-            $scope.classFunctions = defval;
-            $scope.classTypes = defval;
-            $scope.classDwor = defval;
-            $scope.classInterfacetype = defval;
-
-            $scope.changeClass = function(value) {
-                switch (value) {
-                    case 'functions':
-                        $scope.classFunctions = "label label-danger";
-                        break;
-                    case 'dwor':
-                        $scope.classDwor = "label label-danger";
-                        break;
-                    case 'types':
-                        $scope.classTypes = "label label-danger";
-                        break;
-                    case 'domain':
-                        $scope.classDomain = "label label-danger";
-                        break;
-                    case 'interfacetype':
-                        $scope.classInterfacetype = "label label-danger";
-                        break;
-                };
-            }
-
-            $scope.functions = function(value) {
-                var newdata = [];
-                //console.log(value);
-                for (var domain in $scope.data) {
-                    if ($scope.data[domain].functions == value) {
-                        //console.log($scope.data[domain]);
-                        newdata.push($scope.data[domain]);
-                        $scope.$watch(newdata, function(newVal, oldVal) {
-                            $scope.data = newdata;
-                        });
-                    }
-                }
-            };
-            $scope.interfacetype = function(value) {
-                var newdata = [];
-                console.log(value);
-                for (var domain in $scope.data) {
-                    if ($scope.data[domain].interfacetype == value) {
-                        //console.log($scope.data[domain]);
-                        newdata.push($scope.data[domain]);
-                        $scope.$watch(newdata, function(newVal, oldVal) {
-                            $scope.data = newdata;
-                        });
-                    }
-                }
-            };
-            $scope.types = function(value) {
-                var newdata = [];
-                console.log(value);
-                for (var domain in $scope.data) {
-                    if ($scope.data[domain].types == value) {
-                        //console.log($scope.data[domain]);
-                        newdata.push($scope.data[domain]);
-                        $scope.$watch(newdata, function(newVal, oldVal) {
-                            $scope.data = newdata;
-                        });
-                    }
-                }
-            };
-            $scope.dwor = function(value) {
-                var newdata = [];
-                //console.log(value);
-                for (var domain in $scope.data) {
-                    if ($scope.data[domain].dwor == value) {
-                        //console.log($scope.data[domain]);
-                        newdata.push($scope.data[domain]);
-                        $scope.$watch(newdata, function(newVal, oldVal) {
-                            $scope.data = newdata;
-                        });
-                    }
-                }
-            };
-            $http.get('outputtest.json')
-                .then(function(res) {
-                    dataService1.setData(res.data);
-                    var newdata = new Object();
-                    $scope.todos = res.data;
-                    $scope.data = res.data;
-                });
-            $scope.reset = function() {
-                var defval = "label label-info"
-                $scope.data = $scope.todos;
-                $scope.classDomain = defval;
-                $scope.classFunctions = defval;
-                $scope.classTypes = defval;
-                $scope.classDwor = defval;
-                $scope.classInterfacetype = defval;
-                reset=false;
-                //reset = true;
-                console.log(reset);
-            };
-            $scope.domains = function(value) {
-                var newdata = [];
-                for (var domain in $scope.data) {
-                    if ($scope.data[domain].riskdomain == value) {
-                        //console.log($scope.data[domain]);
-                        newdata.push($scope.data[domain]);
-                    }
-                };
-
-            $scope.$watch('data2', function() { $scope.data = newdata;});
-
-            }
-
-        }
-    ]);
