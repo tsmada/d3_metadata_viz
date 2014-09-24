@@ -334,4 +334,3 @@ angular.module('SIMDOT')
        }
    }]);
 
-
