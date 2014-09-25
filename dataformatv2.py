@@ -15,7 +15,7 @@ maps = {}
 applist = []
 
 def stripthis(value): ## function to strip bs
-    value = str(value).replace("[","").replace("]","").replace(".","").replace("'","").replace(".CSV","CSV")
+    value = str(value).replace("[","").replace("]","").replace(".","").replace("'","").replace(".CSV","CSV").replace("*",'')
     return value
 
 def buildapplist(): ## sheet parser
@@ -40,11 +40,11 @@ def buildapplist(): ## sheet parser
                 pass
 
         ## this one weird trick that programmers hate!!!!!
-        if appfromfqan not in applist:
-            applist.append(appfromfqan)
+        if appfromid not in applist:
+            applist.append(appfromid)
             maps[rows] = {"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types}
-        elif apptofqan not in applist:
-            applist.append(apptofqan)
+        elif apptoid not in applist:
+            applist.append(apptoid)
             maps[rows] = {"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types}
 
 buildapplist()
@@ -59,17 +59,17 @@ with open("outputv1.json", "wb") as f: ##open output file for writing
         i=0
         current = '{"name": "system.app.' + apps + '", "size": 17010, "imports":[]},\n' ## build 0 dependancy row
         for rows in range(2, 874): ##674
-                for cols in range(3, 4):
+                for cols in range(2, 3):
                     try:
                         print maps[rows]["riskdomain"]
                     except:
                         pass
-                    if str(g.cell(rows,4).value) == apps: ## if we found a match to import on a current row
-                        if str(g.cell(rows-1,3).value) == str(g.cell(rows, 3).value): ## if this is a duplicated import then we must BREAK
+                    if str(g.cell(rows,2).value) == apps: ## if we found a match to import on a current row
+                        if str(g.cell(rows-1,2).value) == str(g.cell(rows, 2).value): ## if this is a duplicated import then we must BREAK
                             break
                         if i == 0: ## also if this is the first iteration after finding an import to add, we must clear the original syntax and rebuild
                             current = '{"name": "system.app.'+ apps + '", "size": 17010,"imports":['
-                        current += '"system.app.' + stripthis(str(g.cell(rows,3).value)) + '",' ## chain import statements to the end of the row
+                        current += '"system.app.' + stripthis(str(g.cell(rows,5).value)) + '",' ## chain import statements to the end of the row
                         i+=1
                         rowset.append(rows)
             ##rowset.append(rows)
@@ -90,5 +90,3 @@ with open("outputv1.json", "wb") as f: ##open output file for writing
             f.write("\n]") ## terminate the data model syntax
     ##f.write('[{"rows": ' + str(rowset) + '}]')
 print "Distinct Apps: ", len(applist)
-with open("outputv2.json", "wb") as f:
-    f.write('[{"rows": ' + str(rowset) + '}]')
