@@ -54,8 +54,28 @@
     </div> -->
     <div class="span10" style="align: center">
       <!--Body content-->
+      <!-- Single button -->
       <center>
-        <div class="span11" style="position: absolute; left: 200px; top: 75px;">
+        Select Years:
+<div class="btn-group">
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    Year <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">2015</a></li>
+    <li><a href="#">2014</a></li>
+    <li><a href="#">2013</a></li>
+    <li class="divider"></li>
+    <li><a href="#">Mulitple Years</a></li>
+  </ul>
+</div>
+<input type="checkbox" id="Q1"><span class="badge">Q1</span></input>
+<input type="checkbox" id="Q2"><span class="badge">Q2</span></input>
+<input type="checkbox" id="Q3"><span class="badge">Q3</span></input>
+<input type="checkbox" id="Q4"><span class="badge">Q4</span></input>
+</center>
+      <center>
+        <div class="span11" style="position: absolute; left: 200px; top: 150px;">
       <!--<script src="js/diagram.js"></script></center>-->
       <div d3></div>
     </div>
