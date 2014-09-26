@@ -101,6 +101,7 @@ angular.module('SIMDOT')
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
                             reset = false;
+                            $('.tooltip').remove();
                         });
                     }
                 }
@@ -115,6 +116,7 @@ angular.module('SIMDOT')
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
                             reset = false;
+                            $('.tooltip').remove();
                         });
                     }
                 }
@@ -129,6 +131,7 @@ angular.module('SIMDOT')
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
                             reset = false;
+                            $('.tooltip').remove();
                         });
                     }
                 }
@@ -143,6 +146,7 @@ angular.module('SIMDOT')
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
                             reset = false;
+                            $('.tooltip').remove();
                         });
                     }
                 }
@@ -156,6 +160,7 @@ angular.module('SIMDOT')
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
                             reset = false;
+                            $('.tooltip').remove();
                         });
                     }
                 }
@@ -170,6 +175,7 @@ angular.module('SIMDOT')
                 $scope.classInterfacetype = defval;
                 $scope.classDatafreq = defval;
                 reset = true;
+                $('.tooltip').remove();
             };
             $scope.domains = function(value) {
                 var newdata = [];
@@ -180,6 +186,7 @@ angular.module('SIMDOT')
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
                             reset = false;
+                            $('.tooltip').remove();
                         });
                     }
                 };
@@ -406,6 +413,9 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     }
 
                     function mouseouted(d) {
+                        tooltip.html(function() {
+                    return null;
+                })
                         link
                             .classed("link--target", false)
                             .classed("link--source", false);
@@ -809,22 +819,6 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     });
 
                 tooltip.html(function() {
-                    var datas = [];
-                    //var indexs = dataService1.getData();
-                    var mappings = (dataService.getData());
-                    //console.log(dataService.getData());
-                    if (d.rows) {
-                        for (var rows in d.rows) {
-                            console.log(rows);
-                            for (i = 0; i < mappings.length; i++) {
-                                if (mappings[i].row == rows) {
-                                    console.log(mappings[i]);
-                                    datas += mappings[i];
-
-                                }
-                            }
-                        }
-                    }
                     return d.name.substring(11);
                 })
                 return tooltip.transition()
@@ -833,6 +827,9 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             }
 
             function mouseouted(d) {
+                tooltip.html(function() {
+                    return null;
+                })
                 link
                     .classed("link--target", false)
                     .classed("link--source", false);
