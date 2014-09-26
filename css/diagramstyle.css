@@ -41,13 +41,14 @@
 }
 
 .node--source {
-  fill: #d62728;
-
+  fill: #5bc0de;
+/*  #d62728 */
 }
 
 .node--target {
 
-  fill: #2ca02c;
+  fill: #d9534f;
+  /*  #2ca02c */
 }
 
 .link--source,
@@ -57,11 +58,13 @@
 }
 
 .link--source {
-  stroke: #2ca02c;
+  stroke: #d9534f;
+  /*  #2ca02c  */
 }
 
 .link--target {
-  stroke: #d62728;
+  stroke: #5bc0de;
+  /* #d62728  */
 }
 
 .chart {
