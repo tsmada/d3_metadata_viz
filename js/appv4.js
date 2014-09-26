@@ -66,6 +66,7 @@ angular.module('SIMDOT')
             $scope.classTypes = defval;
             $scope.classDwor = defval;
             $scope.classInterfacetype = defval;
+            $scope.classDatafreq = defval;
 
             $scope.changeClass = function(value) {
                 switch (value) {
@@ -83,6 +84,9 @@ angular.module('SIMDOT')
                         break;
                     case 'interfacetype':
                         $scope.classInterfacetype = "label label-danger";
+                        break;
+                    case 'datafreq':
+                        $scope.classDatafreq = "label label-danger";
                         break;
                 };
             }
@@ -134,6 +138,19 @@ angular.module('SIMDOT')
                 //console.log(value);
                 for (var domain in $scope.data) {
                     if ($scope.data[domain].dwor == value) {
+                        //console.log($scope.data[domain]);
+                        newdata.push($scope.data[domain]);
+                        $scope.$watch(newdata, function(newVal, oldVal) {
+                            $scope.data = newdata;
+                            reset = false;
+                        });
+                    }
+                }
+            };
+            $scope.datafreq = function(value) {
+                var newdata = [];
+                for (var domain in $scope.data) {
+                    if ($scope.data[domain].datafreq == value) {
                         //console.log($scope.data[domain]);
                         newdata.push($scope.data[domain]);
                         $scope.$watch(newdata, function(newVal, oldVal) {
@@ -255,6 +272,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     for (var rows in unique) {
                         var newobj = {
                             "name": unique[rows],
+                            "appid": [],
                             "key": unique[rows].substring(11),
                             "size": 17010,
                             "imports": []
@@ -263,6 +281,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                             //console.log(scope.data[row].apptofqan, unique[rows]);
                             if ("system.app." + scope.data[row].appfromfqan == unique[rows]){
                                 if ("system.app." + scope.data[row].apptofqan != newobj.imports){
+                                    newobj.appid = scope.data[row].appfromid;
                                     newobj.imports.push("system.app." + scope.data[row].apptofqan);
 
                                 } else {
@@ -377,7 +396,8 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                                     }
                                 }
                             }
-                            return d.name.substring(11);
+                            //return d.name.substring(11);
+                            return d.appid;
                         })
                         return tooltip.transition()
                             .duration(50)

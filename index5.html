@@ -39,6 +39,10 @@
       <ul ng-repeat="datas in data | unique: 'interfacetype'">
       <span ng-class="classInterfacetype" href='#' ng-click="interfacetype(datas.interfacetype); changeClass('interfacetype');">{{datas.interfacetype}}</span>
     </ul>
+    <h3>Data Frequency</h3>
+      <ul ng-repeat="datas in data | unique: 'datafreq'">
+      <span ng-class="classDatafreq" href='#' ng-click="datafreq(datas.datafreq); changeClass('datafreq');">{{datas.datafreq}}</span>
+    </ul>
     <span class="label label-danger" href='#' ng-click="reset()">Reset</span>
       <!--li><span class="label label-info">{{data.types}}</span></li>-->
   </div>

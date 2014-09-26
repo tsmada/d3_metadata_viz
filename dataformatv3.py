@@ -15,7 +15,7 @@ maps = {}
 applist = []
 
 def stripthis(value): ## function to strip bs
-    value = str(value).replace("[","").replace("]","").replace(".","").replace("'","").replace(".CSV","CSV").replace("*",'')
+    value = str(value).replace("[","").replace("]","").replace(".","").replace("'","").replace(".CSV","CSV")
     return value
 
 def buildapplist(): ## sheet parser
@@ -40,17 +40,17 @@ def buildapplist(): ## sheet parser
                 pass
 
         ## this one weird trick that programmers hate!!!!!
-        if appfromid not in applist:
-            applist.append(appfromid)
+        if appfromfqan not in applist:
+            applist.append(appfromfqan)
             maps[rows] = {"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types}
-        elif apptoid not in applist:
-            applist.append(apptoid)
+        elif apptofqan not in applist:
+            applist.append(apptofqan)
             maps[rows] = {"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types}
 
 buildapplist()
 current = ""
 
-with open("outputv2.json", "wb") as f: ##open output file for writing
+with open("outputv3.json", "wb") as f: ##open output file for writing
     f.write("[\n") ## write json syntax header
     k=0 ## app counter
     for apps in applist: ## iterate through the applications found with initial parsing -- there should only be one row per unique app
@@ -59,21 +59,26 @@ with open("outputv2.json", "wb") as f: ##open output file for writing
         i=0
         current = '{"appid": "TEST","name": "system.app.' + apps + '", "size": 17010, "imports":[]},\n' ## build 0 dependancy row
         for rows in range(2, 874): ##674
-                for cols in range(2, 3):
+                for cols in range(3, 4):
                     try:
                         print maps[rows]["riskdomain"]
+                        current.replace("TEST", maps[rows]["appfromid"]);
                     except:
                         pass
-                    if str(g.cell(rows,2).value) == apps: ## if we found a match to import on a current row
-                        if str(g.cell(rows-1,2).value) == str(g.cell(rows, 2).value): ## if this is a duplicated import then we must BREAK
+                    current.replace("TEST", '"'+ str(g.cell(rows, 2).value)+ '"');
+
+                    if str(g.cell(rows,4).value) == apps: ## if we found a match to import on a current row
+                        current.replace("TEST", str(g.cell(rows, 2).value))
+                        if str(g.cell(rows-1,3).value) == str(g.cell(rows, 3).value): ## if this is a duplicated import then we must BREAK
                             break
                         if i == 0: ## also if this is the first iteration after finding an import to add, we must clear the original syntax and rebuild
-                            current = '{"appid": "' + str(g.cell(rows, 2).value) + '","name": "system.app.'+ apps + '", "size": 17010,"imports":['
-                        current += '"system.app.' + stripthis(str(g.cell(rows,5).value)) + '",' ## chain import statements to the end of the row
+                            current = '{"appid": "' + str(g.cell(rows, 2).value) +'", "name": "system.app.'+ apps + '", "size": 17010,"imports":['
+                        current += '"system.app.' + stripthis(str(g.cell(rows,3).value)) + '",' ## chain import statements to the end of the row
+                        current.replace("TEST", '"'+ str(g.cell(rows, 2).value)+ '"');
                         i+=1
                         rowset.append(rows)
-            ##rowset.append(rows)
         k+=1
+        ##current.replace("TEST", maps[rows]["appfromid"]);
         if current[-3] != "}": ## weird hacky thing to check if line is terminated correctly
             s = list(current)
             s[-1] = ''
