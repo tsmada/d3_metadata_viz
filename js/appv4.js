@@ -261,9 +261,12 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                         }
                         for (var row in scope.data){
                             //console.log(scope.data[row].apptofqan, unique[rows]);
-                            if ("system.app." + scope.data[row].apptofqan == unique[rows]){
-                                if (!"system.app." + scope.data[row].apptofqan in newobj.imports){} else {
-                               newobj.imports.push("system.app." + scope.data[row].appfromfqan);
+                            if ("system.app." + scope.data[row].appfromfqan == unique[rows]){
+                                if ("system.app." + scope.data[row].apptofqan != newobj.imports){
+                                    newobj.imports.push("system.app." + scope.data[row].apptofqan);
+
+                                } else {
+                               //newobj.imports.push("system.app." + scope.data[row].apptofqan);
                            };
                             }
                         }
@@ -281,29 +284,29 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     //console.log("Classes: ", classes);
                     var nodes = cluster.nodes(packageHierarchy(newclass));
                     var links = packageImports(nodes);
-                    for (var linksss in links) {
-                        //console.log(links[linksss]);
-                        link = link
-                            .data(bundle(links[linksss]))
-                            .enter().append("path")
-                            .each(function(d) {
-                                //console.log(d[0], d[d.length-1]);
-                                d.source = d[0], d.target = d[d.length - 1];
-                            })
-                            .attr("class", "link")
-                            .attr("d", line);
+                    // for (var linksss in links) {
+                    //     //console.log(links[linksss]);
+                    //     link = link
+                    //         .data(bundle(links[linksss]))
+                    //         .enter().append("path")
+                    //         .each(function(d) {
+                    //             //console.log(d[0], d[d.length-1]);
+                    //             d.source = d[0], d.target = d[d.length - 1];
+                    //         })
+                    //         .attr("class", "link")
+                    //         .attr("d", line);
 
-                    }
+                    // }
 
-                    // link = link
-                    // .data(bundle(links))
-                    // .enter().append("path")
-                    // .each(function(d) {
-                    //     //console.log(d[0], d[d.length-1]);
-                    //     d.source = d[0], d.target = d[d.length - 1];
-                    // })
-                    // .attr("class", "link")
-                    // .attr("d", line);
+                    link = link
+                    .data(bundle(links))
+                    .enter().append("path")
+                    .each(function(d) {
+                        //console.log(d[0], d[d.length-1]);
+                        d.source = d[0], d.target = d[d.length - 1];
+                    })
+                    .attr("class", "link")
+                    .attr("d", line);
                     i = 0;
                     node = node
                         .data(nodes.filter(function(n) {
