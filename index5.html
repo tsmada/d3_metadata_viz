@@ -9,12 +9,15 @@
     <center>
   <h1>SIMDOT</h1>
   </center>
+<div style="float: left;margin-left: -65px; position: absolute; margin-top: -75px; margin-right:100%;">
+  <img src="img/trilogo.png">
+</div>
 </div>
 <div ng-controller="DataCtrl">
 </div>
 </body>
 <div class="container-fluid" ng-controller="DataCtrl">
-  <div class="span2" style="float: left; width: 200px;">
+  <div class="span2" style="float: left; width: 200px; margin-top: 100px">
       <!--Sidebar content-->
       <h3>Risk Domain</h3>
       <ul ng-repeat="datas in data | unique: 'riskdomain'">
@@ -62,6 +65,7 @@
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Filter" ng-model="searchText">
         </div>
+
         <thead>
           <tr>
             <th>Risk Domain</th>
@@ -78,7 +82,6 @@
         </thead>
         <tbody>
           <tr ng-repeat="datas in data | filter: searchText">
-            {{datas}}
             <td>{{datas.riskdomain}}</td>
             <td>{{datas.appfromfqan}}</td>
             <td>{{datas.apptofqan}}</td>
