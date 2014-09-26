@@ -779,7 +779,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                             return d.x < 180 ? "start" : "end";
                         })
                         .text(function(d) {
-                            console.log(d.appid);
+                            //console.log(d.appid);
                             return d.appid;
                         })
                         .on("mouseover", mouseovered)

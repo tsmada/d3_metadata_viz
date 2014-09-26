@@ -60,14 +60,14 @@ with open("outputv3.json", "wb") as f: ##open output file for writing
         print apps
         rowset = []
         i=0
-        current = '{"appid": "' + str(appidlist[k]) + '","name": "system.app.' + apps + '", "size": 17010, "imports":[]},\n' ## build 0 dependancy row
+        current = '{"appid": "' + stripthis(str(appidlist[k])) + '","name": "system.app.' + apps + '", "size": 17010, "imports":[]},\n' ## build 0 dependancy row
         for rows in range(2, 874): ##674
                 for cols in range(3, 4):
                     if str(g.cell(rows,4).value) == apps: ## if we found a match to import on a current row
                         if str(g.cell(rows-1,3).value) == str(g.cell(rows, 3).value): ## if this is a duplicated import then we must BREAK
                             break
                         if i == 0: ## also if this is the first iteration after finding an import to add, we must clear the original syntax and rebuild
-                            current = '{"appid": "' + str(g.cell(rows, 2).value) +'", "name": "system.app.'+ apps + '", "size": 17010,"imports":['
+                            current = '{"appid": "' + stripthis(str(g.cell(rows, 2).value)) +'", "name": "system.app.'+ apps + '", "size": 17010,"imports":['
                         current += '"system.app.' + stripthis(str(g.cell(rows,3).value)) + '",' ## chain import statements to the end of the row
                         ##current.replace("TEST", '"'+ str(g.cell(rows, 2).value)+ '"');
                         i+=1
