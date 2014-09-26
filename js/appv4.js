@@ -96,6 +96,7 @@ angular.module('SIMDOT')
                         newdata.push($scope.data[domain]);
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
+                            reset = false;
                         });
                     }
                 }
@@ -109,6 +110,7 @@ angular.module('SIMDOT')
                         newdata.push($scope.data[domain]);
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
+                            reset = false;
                         });
                     }
                 }
@@ -122,6 +124,7 @@ angular.module('SIMDOT')
                         newdata.push($scope.data[domain]);
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
+                            reset = false;
                         });
                     }
                 }
@@ -135,7 +138,7 @@ angular.module('SIMDOT')
                         newdata.push($scope.data[domain]);
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
-                            //reset = false;
+                            reset = false;
                         });
                     }
                 }
@@ -240,6 +243,8 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                         var tempname = "system.app." + scope.data[rows].appfromfqan;
                         tempkeys.push(tempname);
                         tempname = "system.app." + scope.data[rows].apptofqan;
+                        //console.log(scope.data[rows].apptofqan);
+                        tempkeys.push(tempname);
                     }
                     var unique = tempkeys.filter(function(itm, i, tempkeys) {
                         return i == tempkeys.indexOf(itm);
@@ -253,7 +258,15 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                             "key": unique[rows].substring(11),
                             "size": 17010,
                             "imports": []
-                        };
+                        }
+                        for (var row in scope.data){
+                            //console.log(scope.data[row].apptofqan, unique[rows]);
+                            if ("system.app." + scope.data[row].apptofqan == unique[rows]){
+                                if (!"system.app." + scope.data[row].apptofqan in newobj.imports){} else {
+                               newobj.imports.push("system.app." + scope.data[row].appfromfqan);
+                           };
+                            }
+                        }
                         console.log(newobj);
                         newclass.push(newobj);
                         //console.log(unique[rows]);
@@ -263,17 +276,9 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                         //}
                     }
                     //FIGURE OUT SOME WAY TO FILL THE OBJECTS ABOVE WITH THE CORRECT IMPORT STATEMENTS
-                    for (var row in scope.data) {
-                        console.log(scope.data[row]);
-                        var tmp = "system.app.";
-                        var tmp1 = scope.data[row].appfromfqan;
-                        var tmp2 = tmp + tmp1;
-                        console.log(tmp2);
-                        //newclass["system.app." + scope.data[row].apptofqan].imports = "system.app." + scope.data.[row].appfromfqan;
-                    }
                     console.log(newclass);
-                    var classes = mapService.defData().slice(rowset[0], rowset[rowset.length - 1]);
-                    console.log("Classes: ", classes);
+                    //var classes = mapService.defData().slice(rowset[0], rowset[rowset.length - 1]);
+                    //console.log("Classes: ", classes);
                     var nodes = cluster.nodes(packageHierarchy(newclass));
                     var links = packageImports(nodes);
                     for (var linksss in links) {
@@ -490,11 +495,6 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
 
                     var link = svg.append("g").selectAll(".link"),
                         node = svg.append("g").selectAll(".node");
-
-
-                    //d3.json("outputv1.json", function(error, classes) {
-
-                    //dataService1.setData(classes);
                     var classe = $http.get('outputv1.json')
                         .then(function(res) {
                             console.log('loading static in directive');
