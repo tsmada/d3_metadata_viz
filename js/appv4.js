@@ -168,6 +168,7 @@ angular.module('SIMDOT')
                 $scope.classTypes = defval;
                 $scope.classDwor = defval;
                 $scope.classInterfacetype = defval;
+                $scope.classDatafreq = defval;
                 reset = true;
             };
             $scope.domains = function(value) {
