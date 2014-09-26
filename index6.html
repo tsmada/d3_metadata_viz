@@ -1,0 +1,132 @@
+<html ng-app="SIMDOT">
+<meta charset="utf-8">
+<head>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <center>
+  <h1>SIMDOT</h1>
+  </center>
+<div style="float: left;margin-left: -65px; position: absolute; margin-top: -75px; margin-right:100%;">
+  <img src="img/trilogo.png">
+</div>
+</div>
+<div ng-controller="DataCtrl">
+</div>
+</body>
+<div class="container-fluid" ng-controller="DataCtrl">
+  <div class="span2" style="float: left; width: 200px; margin-top: 100px">
+      <!--Sidebar content-->
+      <h3>Risk Domain</h3>
+      <ul ng-repeat="datas in data | unique: 'riskdomain'">
+      <span ng-class="classDomain" href='#' ng-click="domains(datas.riskdomain); changeClass('domain');">{{datas.riskdomain}}</span>
+    </ul>
+    <h3>Function</h3>
+      <ul ng-repeat="datas in data | unique: 'functions'">
+      <span ng-class="classFunctions" href='#' ng-click="functions(datas.functions); changeClass('functions');">{{datas.functions}}</span>
+    </ul>
+    <h3>System Type</h3>
+      <ul ng-repeat="datas in data | unique: 'types'">
+      <span ng-class="classTypes" href='#' ng-click="types(datas.types); changeClass('types');">{{datas.types}}</span>
+    </ul>
+    <h3>Data Warehouse</h3>
+      <ul ng-repeat="datas in data | unique: 'dwor'">
+      <span ng-class="classDwor" href='#' ng-click="dwor(datas.dwor); changeClass('dwor');">{{datas.dwor}}</span>
+    </ul>
+    <h3>Interface Type</h3>
+      <ul ng-repeat="datas in data | unique: 'interfacetype'">
+      <span ng-class="classInterfacetype" href='#' ng-click="interfacetype(datas.interfacetype); changeClass('interfacetype');">{{datas.interfacetype}}</span>
+    </ul>
+    <h3>Data Frequency</h3>
+      <ul ng-repeat="datas in data | unique: 'datafreq'">
+      <span ng-class="classDatafreq" href='#' ng-click="datafreq(datas.datafreq); changeClass('datafreq');">{{datas.datafreq}}</span>
+    </ul>
+    <span class="label label-danger" href='#' ng-click="reset()">Reset</span>
+      <!--li><span class="label label-info">{{data.types}}</span></li>-->
+  </div>
+  <div class="row-fluid">
+    <!--div class="attrwindow">
+      <Sidebar content-->
+        <!--
+      <h3>Attributes</h3>
+      <li>Source ID</li>
+      <li>Destination ID</li>
+      <li>Functions</li>
+      <li>DWoR</li>
+    </div> -->
+    <div class="span10" style="align: center">
+      <!--Body content-->
+      <!-- Single button -->
+      <center>
+<div class="btn-group">
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    Year <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">2015</a></li>
+    <li><a href="#">2014</a></li>
+    <li><a href="#">2013</a></li>
+    <li class="divider"></li>
+    <li><a href="#">Mulitple Years</a></li>
+  </ul>
+</div>
+<input type="checkbox" id="Q1"><span class="badge">Q1</span></input>
+<input type="checkbox" id="Q2"><span class="badge">Q2</span></input>
+<input type="checkbox" id="Q3"><span class="badge">Q3</span></input>
+<input type="checkbox" id="Q4"><span class="badge">Q4</span></input>
+</center>
+      <center>
+        <div class="span11" style="position: absolute; left: 200px; top: 150px;">
+      <!--<script src="js/diagram.js"></script></center>-->
+      <div d3></div>
+    </div>
+      <!--div d3 chart-data="data" val="+"></div-->
+      <div style="margin-top: 800px">
+      <table class="table">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Filter" ng-model="searchText">
+        </div>
+
+        <thead>
+          <tr>
+            <th>Risk Domain</th>
+            <th>System From</th>
+            <th>System To</th>
+            <th>Functions</th>
+            <th>Type</th>
+            <th>Data Warehouse of Record</th>
+            <th>Lifecycle</th>
+            <th>Level of Integration</th>
+            <th>Interface Type</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="datas in data | filter: searchText">
+            <td>{{datas.riskdomain}}</td>
+            <td>{{datas.appfromfqan}}</td>
+            <td>{{datas.apptofqan}}</td>
+            <td>{{datas.functions}}</td>
+            <td>{{datas.types}}</td>
+            <td>{{datas.dwor}}</td>
+            <td>{{datas.lifecycle}}</td>
+            <td>{{datas.iil}}</td>
+            <td>{{datas.interfacetype}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+<script src="js/jquery-1.11.1.js"></script>
+<script src="js/angular.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/appv5.js"></script>
+<script type="text/javascript" src="bower_components/angular-ui-utils/ui-utils.js"></script>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+<link rel="stylesheet" type="text/css" href="css/diagramstyle.css">
+</html>

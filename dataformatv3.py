@@ -11,11 +11,12 @@ wbstr = inputsource ## Set input source to variable
 wb = open_workbook(wbstr) ## Set variable = instantiation of open_workbook(input source)
 g = wb.sheet_by_index(0) ## Grab the first sheet
 keys = []
+appidlist = []
 maps = {}
 applist = []
 
 def stripthis(value): ## function to strip bs
-    value = str(value).replace("[","").replace("]","").replace(".","").replace("'","").replace(".CSV","CSV")
+    value = str(value).replace("[","").replace("]","").replace(".","").replace("'","").replace(".CSV","CSV").replace("*",'')
     return value
 
 def buildapplist(): ## sheet parser
@@ -42,9 +43,11 @@ def buildapplist(): ## sheet parser
         ## this one weird trick that programmers hate!!!!!
         if appfromfqan not in applist:
             applist.append(appfromfqan)
+            appidlist.append(stripthis(str(appfromid)))
             maps[rows] = {"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types}
         elif apptofqan not in applist:
             applist.append(apptofqan)
+            appidlist.append(stripthis(str(apptoid)))
             maps[rows] = {"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types}
 
 buildapplist()
@@ -57,18 +60,10 @@ with open("outputv3.json", "wb") as f: ##open output file for writing
         print apps
         rowset = []
         i=0
-        current = '{"appid": "TEST","name": "system.app.' + apps + '", "size": 17010, "imports":[]},\n' ## build 0 dependancy row
+        current = '{"appid": "' + str(appidlist[k]) + '","name": "system.app.' + apps + '", "size": 17010, "imports":[]},\n' ## build 0 dependancy row
         for rows in range(2, 874): ##674
                 for cols in range(3, 4):
-                    try:
-                        print maps[rows]["riskdomain"]
-                        current.replace("TEST", maps[rows]["appfromid"]);
-                    except:
-                        pass
-                    current.replace("TEST", '"'+ str(g.cell(rows, 2).value)+ '"');
-
                     if str(g.cell(rows,4).value) == apps: ## if we found a match to import on a current row
-                        current.replace("TEST", str(g.cell(rows, 2).value))
                         if str(g.cell(rows-1,3).value) == str(g.cell(rows, 3).value): ## if this is a duplicated import then we must BREAK
                             break
                         if i == 0: ## also if this is the first iteration after finding an import to add, we must clear the original syntax and rebuild
