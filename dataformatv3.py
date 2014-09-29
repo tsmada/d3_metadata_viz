@@ -43,11 +43,11 @@ def buildapplist(): ## sheet parser
         ## this one weird trick that programmers hate!!!!!
         if appfromfqan not in applist:
             applist.append(appfromfqan)
-            appidlist.append(stripthis(str(appfromid)))
+            appidlist.append(stripthis(appfromid))
             maps[rows] = {"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types}
         elif apptofqan not in applist:
             applist.append(apptofqan)
-            appidlist.append(stripthis(str(apptoid)))
+            appidlist.append(stripthis(apptoid))
             maps[rows] = {"riskdomain": riskdomain, "appfromid": appfromid, "appfromfqan": appfromfqan, "apptofqan": apptofqan, "apptoid": apptoid, "functions": functions, "types": types}
 
 buildapplist()

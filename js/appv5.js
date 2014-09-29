@@ -350,7 +350,11 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                             return d.x < 180 ? "start" : "end";
                         })
                         .text(function(d) {
+                            if (d.appid.length > 0) {
                             return d.appid;
+                        } else {
+                            return d.key;
+                        }
                         })
                         .on("mouseover", mouseovered)
                         .on("mouseout", mouseouted);
@@ -562,7 +566,11 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                                     return d.x < 180 ? "start" : "end";
                                 })
                                 .text(function(d) {
-                                    return d.appid;
+                                    if (d.appid.length > 0) {
+                            return d.appid;
+                        } else {
+                            return d.key;
+                        }
                                 })
                                 .on("mouseover", mouseovered)
                                 .on("mouseout", mouseouted);
@@ -780,7 +788,11 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                         })
                         .text(function(d) {
                             //console.log(d.appid);
+                            if (d.appid.length > 0) {
                             return d.appid;
+                        } else {
+                            return d.key;
+                        }
                         })
                         .on("mouseover", mouseovered)
                         .on("mouseout", mouseouted);

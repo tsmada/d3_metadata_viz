@@ -15,7 +15,7 @@ applist = []
 maps = []
 
 def stripthis(value): ## function to strip bs
-    value = str(value).replace("[","").replace("]","").replace(".","").replace("'","").replace(".CSV","CSV")
+    value = str(value).replace("[","").replace("]","").replace(".","").replace("'","").replace(".CSV","CSV").replace("*", '')
     return value
 
 def buildapplist(): ## sheet parser
