@@ -1,3 +1,5 @@
+
+
 /*!
  * Bootstrap v3.2.0 (http://getbootstrap.com)
  * Copyright 2011-2014 Twitter, Inc.
@@ -1383,6 +1385,14 @@ pre code {
 .pre-scrollable {
   max-height: 340px;
   overflow-y: scroll;
+}
+.container-sidebar {
+  /*margin-right: auto;
+  margin-left: auto; */
+  padding-left: 15px;
+  padding-right: 15px;
+  border-style: solid;
+  border-width: 1px;
 }
 .container {
   margin-right: auto;
