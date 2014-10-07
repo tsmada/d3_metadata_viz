@@ -197,7 +197,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
     return {
         restrict: 'EA',
         //template:"<svg width='850' height='200'></svg>",
-        //scope: {data: '=chartData'},
+        //scope: {diameter: '=diaDiameter'},
         link: function(scope, elem, attrs) {
             //scope.$apply();
             scope.$watch('data', function() {
@@ -215,8 +215,9 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                         .style("font-weight", "bold")
                         .style("font-size", "250%");
 
-                    var diameter = 850,
-                        radius = diameter / 2,
+                        //var diameter = diaDiameter;
+                        var diameter = 850;
+                        var radius = diameter / 2,
                         innerRadius = radius - 120;
 
                     var cluster = d3.layout.cluster()
@@ -486,8 +487,8 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                         .style("font-weight", "bold")
                         .style("font-size", "250%");
 
-                    var diameter = 800,
-                        radius = diameter / 2,
+                        var diameter = 850;
+                        var radius = diameter / 2,
                         innerRadius = radius - 120;
 
                     var cluster = d3.layout.cluster()
