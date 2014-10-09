@@ -1,0 +1,112 @@
+<html ng-app="SIMDOT">
+<meta charset="utf-8">
+
+<head>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Vendor Here</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Edit</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">View <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Help</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+     <div class="container-fluid">
+        <div class="row-fluid" ng-controller="DataCtrl">
+            <!--div class="span2" style="float: left; width: 200px; margin-top: 100px"-->
+            <div class="col-md-2" style="border-style: solid; overflow: scroll;">
+                <!--Sidebar content-->
+                <h3>Risk Domain</h3>
+                <ul ng-repeat="datas in data | unique: 'riskdomain'">
+                    <span ng-class="classDomain" href='#' ng-click="domains(datas.riskdomain); changeClass('domain');">{{datas.riskdomain}}</span>
+                </ul>
+                <span class="divider"></span>
+                <h3>Function</h3>
+                <ul ng-repeat="datas in data | unique: 'functions'">
+                    <span ng-class="classFunctions" href='#' ng-click="functions(datas.functions); changeClass('functions');">{{datas.functions}}</span>
+                </ul>
+                <h3>System Type</h3>
+                <ul ng-repeat="datas in data | unique: 'types'">
+                    <span ng-class="classTypes" href='#' ng-click="types(datas.types); changeClass('types');">{{datas.types}}</span>
+                </ul>
+                <h3>Data Warehouse</h3>
+                <ul ng-repeat="datas in data | unique: 'dwor'">
+                    <span ng-class="classDwor" href='#' ng-click="dwor(datas.dwor); changeClass('dwor');">{{datas.dwor}}</span>
+                </ul>
+                <h3>Interface Type</h3>
+                <ul ng-repeat="datas in data | unique: 'interfacetype'">
+                    <span ng-class="classInterfacetype" href='#' ng-click="interfacetype(datas.interfacetype); changeClass('interfacetype');">{{datas.interfacetype}}</span>
+                </ul>
+                <h3>Data Frequency</h3>
+                <ul ng-repeat="datas in data | unique: 'datafreq'">
+                    <span ng-class="classDatafreq" href='#' ng-click="datafreq(datas.datafreq); changeClass('datafreq');">{{datas.datafreq}}</span>
+                </ul>
+                <span class="label label-danger" href='#' ng-click="reset()">Reset</span>
+                <!--li><span class="label label-info">{{data.types}}</span></li>-->
+            </div>
+            <div class="col-md-4" style="border-style: solid; overflow: scroll;">
+                Viewport 1</div>
+            <div class="col-md-4" style="border-style: solid; overflow: scroll;">Viewport 2</div>
+            <div class="col-md-2" style="border-style: solid; overflow: scroll;">Configuration Options</div>
+        </div>
+    </div>
+</body>
+<script src="js/jquery-1.11.1.js"></script>
+<script src="js/angular.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/appv6.js"></script>
+<script src="js/reload.js"></script>
+<script type="text/javascript" src="bower_components/angular-ui-utils/ui-utils.js"></script>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+<link rel="stylesheet" type="text/css" href="css/diagramstyle.css">
+
+</html>

@@ -97,32 +97,45 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Filter" ng-model="searchText">
                         </div>
-
+<!--maps.append({'riskdomain': riskdomain, 'appfromid': appfromid, 'appfromfqan': appfromfqan, 'apptofqan': apptofqan, 'apptoid': apptoid, 'functions': functions, 'types': types, 'dwor': dwor, 'lifecycle': lifecycle, 'date': date,'iil': iil, 'interfacetype':interfacetype,'datafreq':datafreq,'period': period,'position': position,'accountproduct':accountproduct,'interestedparty':interestedparty, 'row': rows})-->
                         <thead>
                             <tr>
                                 <th>Risk Domain</th>
                                 <th>System From</th>
+                                <th>From ID</th>
                                 <th>System To</th>
+                                <th>To ID</th>
                                 <th>Functions</th>
                                 <th>Type</th>
                                 <th>Data Warehouse of Record</th>
                                 <th>Lifecycle</th>
                                 <th>Level of Integration</th>
                                 <th>Interface Type</th>
-
+                                <th>Data Frequency</th>
+                                <th>Period</th>
+                                <th>Position</th>
+                                <th>Account Product</th>
+                                <th>Interested Party</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="datas in data | filter: searchText">
                                 <td>{{datas.riskdomain}}</td>
                                 <td>{{datas.appfromfqan}}</td>
+                                <td>{{datas.appfromid}}</td>
                                 <td>{{datas.apptofqan}}</td>
+                                <td>{{datas.apptoid}}</td>
                                 <td>{{datas.functions}}</td>
                                 <td>{{datas.types}}</td>
                                 <td>{{datas.dwor}}</td>
                                 <td>{{datas.lifecycle}}</td>
                                 <td>{{datas.iil}}</td>
                                 <td>{{datas.interfacetype}}</td>
+                                <td>{{datas.datafreq}}</td>
+                                <td>{{datas.period}}</td>
+                                <td>{{datas.position}}</td>
+                                <td>{{datas.accountproduct}}</td>
+                                <td>{{datas.interestedparty}}</td>
                             </tr>
                         </tbody>
                     </table>

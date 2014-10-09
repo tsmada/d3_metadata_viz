@@ -6,153 +6,117 @@
 </head>
 
 <body>
-    <div class="container">
-        <center>
-            <h1>SIMDOT</h1>
-        </center>
-        <div style="float: left;margin-left: -25px; position: absolute; margin-top: -75px; margin-right:100%;">
-            <img src="img/trilogo.png">
+    <div class="container-fluid">
+        <div class="row-fluid" ng-controller="DataCtrl">
+            <!--div class="span2" style="float: left; width: 200px; margin-top: 100px"-->
+            <div class="col-md-2" style="border-style: solid; overflow: scroll;">
+                <!--Sidebar content-->
+                <h3>Risk Domain</h3>
+                <ul ng-repeat="datas in data | unique: 'riskdomain'">
+                    <span ng-class="classDomain" href='#' ng-click="domains(datas.riskdomain); changeClass('domain');">{{datas.riskdomain}}</span>
+                </ul>
+                <h3>Function</h3>
+                <ul ng-repeat="datas in data | unique: 'functions'">
+                    <span ng-class="classFunctions" href='#' ng-click="functions(datas.functions); changeClass('functions');">{{datas.functions}}</span>
+                </ul>
+                <h3>System Type</h3>
+                <ul ng-repeat="datas in data | unique: 'types'">
+                    <span ng-class="classTypes" href='#' ng-click="types(datas.types); changeClass('types');">{{datas.types}}</span>
+                </ul>
+                <h3>Data Warehouse</h3>
+                <ul ng-repeat="datas in data | unique: 'dwor'">
+                    <span ng-class="classDwor" href='#' ng-click="dwor(datas.dwor); changeClass('dwor');">{{datas.dwor}}</span>
+                </ul>
+                <h3>Interface Type</h3>
+                <ul ng-repeat="datas in data | unique: 'interfacetype'">
+                    <span ng-class="classInterfacetype" href='#' ng-click="interfacetype(datas.interfacetype); changeClass('interfacetype');">{{datas.interfacetype}}</span>
+                </ul>
+                <h3>Data Frequency</h3>
+                <ul ng-repeat="datas in data | unique: 'datafreq'">
+                    <span ng-class="classDatafreq" href='#' ng-click="datafreq(datas.datafreq); changeClass('datafreq');">{{datas.datafreq}}</span>
+                </ul>
+                <span class="label label-danger" href='#' ng-click="reset()">Reset</span>
+                <!--li><span class="label label-info">{{data.types}}</span></li>-->
+            </div>
+            <div class="span10" style="align: center">
+                <!--Body content-->
+                <!-- Single button -->
+                <!--center>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                            Year <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">2015</a>
+                            </li>
+                            <li><a href="#">2014</a>
+                            </li>
+                            <li><a href="#">2013</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="#">Mulitple Years</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="checkbox" id="Q1"><span class="badge">Q1</span>
+                    </input>
+                    <input type="checkbox" id="Q2"><span class="badge">Q2</span>
+                    </input>
+                    <input type="checkbox" id="Q3"><span class="badge">Q3</span>
+                    </input>
+                    <input type="checkbox" id="Q4"><span class="badge">Q4</span>
+                    </input>
+                    <button class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Configure</button>
+                </center-->
+                <center>
+                    <div class="col-md-6" style="border-style: solid;">
+                        <!--<script src="js/diagram.js"></script></center>-->
+                        <div d3></div>
+                    </div>
+                    <!--div d3 chart-data="data" val="+"></div-->
+                    <div>
+                        <table class="table">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Filter" ng-model="searchText">
+                            </div>
+
+                            <thead>
+                                <tr>
+                                    <th>Risk Domain</th>
+                                    <th>System From</th>
+                                    <th>System To</th>
+                                    <th>Functions</th>
+                                    <th>Type</th>
+                                    <th>Data Warehouse of Record</th>
+                                    <th>Lifecycle</th>
+                                    <th>Level of Integration</th>
+                                    <th>Interface Type</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="datas in data | filter: searchText">
+                                    <td>{{datas.riskdomain}}</td>
+                                    <td>{{datas.appfromfqan}}</td>
+                                    <td>{{datas.apptofqan}}</td>
+                                    <td>{{datas.functions}}</td>
+                                    <td>{{datas.types}}</td>
+                                    <td>{{datas.dwor}}</td>
+                                    <td>{{datas.lifecycle}}</td>
+                                    <td>{{datas.iil}}</td>
+                                    <td>{{datas.interfacetype}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
         </div>
     </div>
-    <div ng-controller="DataCtrl">
-    </div>
-<div class="container-fluid">
-    <div class="row-fluid" ng-controller="DataCtrl">
-    <!--div class="span2" style="float: left; width: 200px; margin-top: 100px"-->
-    <div class="span2">
-        <!--Sidebar content-->
-        <h3>Risk Domain</h3>
-        <ul ng-repeat="datas in data | unique: 'riskdomain'">
-            <span ng-class="classDomain" href='#' ng-click="domains(datas.riskdomain); changeClass('domain');">{{datas.riskdomain}}</span>
-        </ul>
-        <h3>Function</h3>
-        <ul ng-repeat="datas in data | unique: 'functions'">
-            <span ng-class="classFunctions" href='#' ng-click="functions(datas.functions); changeClass('functions');">{{datas.functions}}</span>
-        </ul>
-        <h3>System Type</h3>
-        <ul ng-repeat="datas in data | unique: 'types'">
-            <span ng-class="classTypes" href='#' ng-click="types(datas.types); changeClass('types');">{{datas.types}}</span>
-        </ul>
-        <h3>Data Warehouse</h3>
-        <ul ng-repeat="datas in data | unique: 'dwor'">
-            <span ng-class="classDwor" href='#' ng-click="dwor(datas.dwor); changeClass('dwor');">{{datas.dwor}}</span>
-        </ul>
-        <h3>Interface Type</h3>
-        <ul ng-repeat="datas in data | unique: 'interfacetype'">
-            <span ng-class="classInterfacetype" href='#' ng-click="interfacetype(datas.interfacetype); changeClass('interfacetype');">{{datas.interfacetype}}</span>
-        </ul>
-        <h3>Data Frequency</h3>
-        <ul ng-repeat="datas in data | unique: 'datafreq'">
-            <span ng-class="classDatafreq" href='#' ng-click="datafreq(datas.datafreq); changeClass('datafreq');">{{datas.datafreq}}</span>
-        </ul>
-        <span class="label label-danger" href='#' ng-click="reset()">Reset</span>
-        <!--li><span class="label label-info">{{data.types}}</span></li>-->
-    </div>
-        <div class="span10" style="align: center">
-            <!--Body content-->
-            <!-- Single button -->
-            <center>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                        Year <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">2015</a>
-                        </li>
-                        <li><a href="#">2014</a>
-                        </li>
-                        <li><a href="#">2013</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="#">Mulitple Years</a>
-                        </li>
-                    </ul>
-                </div>
-                <input type="checkbox" id="Q1"><span class="badge">Q1</span>
-                </input>
-                <input type="checkbox" id="Q2"><span class="badge">Q2</span>
-                </input>
-                <input type="checkbox" id="Q3"><span class="badge">Q3</span>
-                </input>
-                <input type="checkbox" id="Q4"><span class="badge">Q4</span>
-                </input>
-                <button class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Configure</button>
-            </center>
-            <center>
-                <div class="span11" style="position: absolute; left: 200px; top: 18%">
-                    <!--<script src="js/diagram.js"></script></center>-->
-                    <div d3></div>
-                </div>
-                <!--div d3 chart-data="data" val="+"></div-->
-                <div style="margin-top: 90%">
-                    <table class="table">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Filter" ng-model="searchText">
-                        </div>
-
-                        <thead>
-                            <tr>
-                                <th>Risk Domain</th>
-                                <th>System From</th>
-                                <th>System To</th>
-                                <th>Functions</th>
-                                <th>Type</th>
-                                <th>Data Warehouse of Record</th>
-                                <th>Lifecycle</th>
-                                <th>Level of Integration</th>
-                                <th>Interface Type</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="datas in data | filter: searchText">
-                                <td>{{datas.riskdomain}}</td>
-                                <td>{{datas.appfromfqan}}</td>
-                                <td>{{datas.apptofqan}}</td>
-                                <td>{{datas.functions}}</td>
-                                <td>{{datas.types}}</td>
-                                <td>{{datas.dwor}}</td>
-                                <td>{{datas.lifecycle}}</td>
-                                <td>{{datas.iil}}</td>
-                                <td>{{datas.interfacetype}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">SIMDOT Configuration Options</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-  <div class="col-lg-6">
-    <div class="input-group">
-        <div>
-        <h5>Strict Filters: <input type="checkbox"></h5>
-        <h5>Diagram Diameter: <input type="text" id="diaDiameter" ng-init="diaDiameter='800'" value="800"></h5>
-    </div>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 <script src="js/jquery-1.11.1.js"></script>
 <script src="js/angular.js"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/appv4.js"></script>
+<script src="js/appv6.js"></script>
 <script src="js/reload.js"></script>
 <script type="text/javascript" src="bower_components/angular-ui-utils/ui-utils.js"></script>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">

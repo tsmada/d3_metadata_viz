@@ -15,23 +15,23 @@ applist = []
 maps = []
 
 def stripthis(value): ## function to strip bs
-    value = str(value).replace("[","").replace("]","").replace(".","").replace("'","").replace(".CSV","CSV").replace("*", '')
+    value = str(value).replace("[","").replace("]","").replace(".","").replace("'","").replace(".CSV","CSV").replace("*", '').replace('.0','')
     return value
 
 def buildapplist(): ## sheet parser
-    for rows in range(2, g.nrows): ## iterate through the rows, start at index 2 (0,1,2), as there are headers in 0-1
+    for rows in range(1, g.nrows): ## iterate through the rows, start at index 2 (0,1,2), as there are headers in 0-1
         for cols in range(1, 24): ## right now we are only interested in the data in columns 1-8 or B-H
             try: ## set variables = to current cell value
                 if cols == 1:
                     riskdomain = stripthis(str(g.cell(rows,cols).value))
                 if cols == 2:
-                    appfromid = stripthis(str(g.cell(rows,cols).value))
+                    appfromid = str(g.cell(rows,cols).value).replace(".0",'')
                 if cols == 3:
                     appfromfqan = stripthis(str(g.cell(rows,cols).value))
                 if cols == 4:
                     apptofqan = stripthis(str(g.cell(rows,cols).value))
                 if cols == 5:
-                    apptoid = stripthis(str(g.cell(rows,cols).value))
+                    apptoid = str(g.cell(rows,cols).value).replace('.0','')
                 if cols == 6:
                     functions = stripthis(str(g.cell(rows,cols).value))
                 if cols == 7:
@@ -124,7 +124,7 @@ with open("outputv3.json", "wb") as f: ##open output file for writing
         rowset = []
         i=0
         current = '{"appid": "' + stripthis(str(appidlist[k])) + '","name": "system.app.' + apps + '", "size": 17010, "imports":[]},\n' ## build 0 dependancy row
-        for rows in range(2, 873): ##674
+        for rows in range(2, 872): ##674
                 for cols in range(3, 4):
                     print str(g.cell(rows,4).value), rows
                     if str(g.cell(rows,4).value) == apps: ## if we found a match to import on a current row

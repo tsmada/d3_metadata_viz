@@ -38,7 +38,7 @@ angular.module('SIMDOT')
                     data = value;
                 },
                 defData: function() {
-                    $http.get('outputv3.json')
+                    $http.get('outputv1.json')
                         .then(function(res) {
                             data = res.data;
                         });
@@ -101,7 +101,6 @@ angular.module('SIMDOT')
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
                             reset = false;
-                            $('.tooltip').remove();
                         });
                     }
                 }
@@ -116,7 +115,6 @@ angular.module('SIMDOT')
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
                             reset = false;
-                            $('.tooltip').remove();
                         });
                     }
                 }
@@ -131,7 +129,6 @@ angular.module('SIMDOT')
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
                             reset = false;
-                            $('.tooltip').remove();
                         });
                     }
                 }
@@ -146,7 +143,6 @@ angular.module('SIMDOT')
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
                             reset = false;
-                            $('.tooltip').remove();
                         });
                     }
                 }
@@ -160,7 +156,6 @@ angular.module('SIMDOT')
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
                             reset = false;
-                            $('.tooltip').remove();
                         });
                     }
                 }
@@ -175,7 +170,6 @@ angular.module('SIMDOT')
                 $scope.classInterfacetype = defval;
                 $scope.classDatafreq = defval;
                 reset = true;
-                $('.tooltip').remove();
             };
             $scope.domains = function(value) {
                 var newdata = [];
@@ -186,7 +180,6 @@ angular.module('SIMDOT')
                         $scope.$watch(newdata, function(newVal, oldVal) {
                             $scope.data = newdata;
                             reset = false;
-                            $('.tooltip').remove();
                         });
                     }
                 };
@@ -204,7 +197,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
     return {
         restrict: 'EA',
         //template:"<svg width='850' height='200'></svg>",
-        //scope: {data: '=chartData'},
+        //scope: {diameter: '=diaDiameter'},
         link: function(scope, elem, attrs) {
             //scope.$apply();
             scope.$watch('data', function() {
@@ -213,7 +206,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     reset = true;
                     $('svg').remove();
                     //console.log("data changed");
-                    var tooltip = d3.select(".span11")
+                    var tooltip = d3.select("head")
                         .append("div")
                         .attr("class", "tooltip")
                         .style("position", "absolute")
@@ -222,8 +215,9 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                         .style("font-weight", "bold")
                         .style("font-size", "250%");
 
-                    var diameter = 850,
-                        radius = diameter / 2,
+                        //var diameter = diaDiameter;
+                        var diameter = 548;
+                        var radius = diameter / 2,
                         innerRadius = radius - 120;
 
                     var cluster = d3.layout.cluster()
@@ -245,7 +239,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                             return d.x / 180 * Math.PI;
                         });
 
-                    var svg = d3.select(".span11").append("svg")
+                    var svg = d3.select(".col-md-6").append("svg")
                         .attr("width", diameter)
                         .attr("height", diameter)
                         .attr("class", "svgmain")
@@ -307,7 +301,6 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     }
                     //FIGURE OUT SOME WAY TO FILL THE OBJECTS ABOVE WITH THE CORRECT IMPORT STATEMENTS
                     console.log(newclass);
-                    console.log(newclass.length);
                     //var classes = mapService.defData().slice(rowset[0], rowset[rowset.length - 1]);
                     //console.log("Classes: ", classes);
                     var nodes = cluster.nodes(packageHierarchy(newclass));
@@ -351,11 +344,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                             return d.x < 180 ? "start" : "end";
                         })
                         .text(function(d) {
-                            if (d.appid.length > 0) {
-                            return d.appid;
-                        } else {
                             return d.key;
-                        }
                         })
                         .on("mouseover", mouseovered)
                         .on("mouseout", mouseouted);
@@ -410,7 +399,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                                 }
                             }
                             //return d.name.substring(11);
-                            return d.name.substring(11);
+                            return d.appid;
                         })
                         return tooltip.transition()
                             .duration(50)
@@ -418,9 +407,6 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     }
 
                     function mouseouted(d) {
-                        tooltip.html(function() {
-                    return null;
-                })
                         link
                             .classed("link--target", false)
                             .classed("link--source", false);
@@ -492,7 +478,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                 } else if (reset == true) {
                     $('svg').remove();
                     console.log("reset == true, loading default dataset");
-                    var tooltip = d3.select(".span11")
+                    var tooltip = d3.select("head")
                         .append("div")
                         .attr("class", "tooltip")
                         .style("position", "absolute")
@@ -501,8 +487,8 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                         .style("font-weight", "bold")
                         .style("font-size", "250%");
 
-                    var diameter = 800,
-                        radius = diameter / 2,
+                        var diameter = 548;
+                        var radius = diameter / 2,
                         innerRadius = radius - 120;
 
                     var cluster = d3.layout.cluster()
@@ -524,7 +510,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                             return d.x / 180 * Math.PI;
                         });
 
-                    var svg = d3.select(".span11").append("svg")
+                    var svg = d3.select(".col-md-6").append("svg")
                         .attr("width", diameter)
                         .attr("height", diameter)
                         .attr("class", "svgmain")
@@ -534,7 +520,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
 
                     var link = svg.append("g").selectAll(".link"),
                         node = svg.append("g").selectAll(".node");
-                    var classe = $http.get('outputv3.json')
+                    var classe = $http.get('outputv1.json')
                         .then(function(res) {
                             console.log('loading static in directive');
                             reset = true;
@@ -567,11 +553,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                                     return d.x < 180 ? "start" : "end";
                                 })
                                 .text(function(d) {
-                                    if (d.appid.length > 0) {
-                            return d.appid;
-                        } else {
-                            return d.key;
-                        }
+                                    return d.key;
                                 })
                                 .on("mouseover", mouseovered)
                                 .on("mouseout", mouseouted);
@@ -711,7 +693,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
 
 
 
-            var tooltip = d3.select(".span11")
+            var tooltip = d3.select("head")
                 .append("div")
                 .attr("class", "tooltip")
                 .style("position", "absolute")
@@ -720,7 +702,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                 .style("font-weight", "bold")
                 .style("font-size", "250%");
 
-            var diameter = 800,
+            var diameter = 548,
                 radius = diameter / 2,
                 innerRadius = radius - 120;
 
@@ -743,7 +725,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     return d.x / 180 * Math.PI;
                 });
 
-            var svg = d3.select(".span11").append("svg")
+            var svg = d3.select(".col-md-6").append("svg")
                 .attr("width", diameter)
                 .attr("height", diameter)
                 .attr("class", "svgmain")
@@ -758,7 +740,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             //d3.json("outputv1.json", function(error, classes) {
 
             //dataService1.setData(classes);
-            var classe = $http.get('outputv3.json')
+            var classe = $http.get('outputv1.json')
                 .then(function(res) {
                     mapService.setData(res.data);
                     var classes = res.data;
@@ -788,12 +770,7 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                             return d.x < 180 ? "start" : "end";
                         })
                         .text(function(d) {
-                            //console.log(d.appid);
-                            if (d.appid.length > 0) {
-                            return d.appid;
-                        } else {
                             return d.key;
-                        }
                         })
                         .on("mouseover", mouseovered)
                         .on("mouseout", mouseouted);
@@ -832,6 +809,22 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
                     });
 
                 tooltip.html(function() {
+                    var datas = [];
+                    //var indexs = dataService1.getData();
+                    var mappings = (dataService.getData());
+                    //console.log(dataService.getData());
+                    if (d.rows) {
+                        for (var rows in d.rows) {
+                            console.log(rows);
+                            for (i = 0; i < mappings.length; i++) {
+                                if (mappings[i].row == rows) {
+                                    console.log(mappings[i]);
+                                    datas += mappings[i];
+
+                                }
+                            }
+                        }
+                    }
                     return d.name.substring(11);
                 })
                 return tooltip.transition()
@@ -840,9 +833,6 @@ App.directive('d3', function($parse, $window, dataService, dataService1, $http, 
             }
 
             function mouseouted(d) {
-                tooltip.html(function() {
-                    return null;
-                })
                 link
                     .classed("link--target", false)
                     .classed("link--source", false);
